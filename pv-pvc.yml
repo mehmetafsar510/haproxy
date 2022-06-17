@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {pvname} # Name of the PV. if the mnt4 is used by another service, it should be changed 
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: {mnt} # if the mnt4 is used by another service, it should be changed
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - {hostname} # Change the value to the hostname of the node
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {pvcname} # if the mnt4 is used by another service, it should be changed
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  volumeName: {pvname} # if the mnt4 is used by another service, it should be changed
+  storageClassName: local-storage
+  volumeMode: Filesystem
