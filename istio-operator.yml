@@ -1,0 +1,95 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: arabox
+  namespace: istio-system
+spec:
+  meshConfig:
+    accessLogEncoding: JSON
+    accessLogFile: /dev/stdout
+  components:
+    ingressGateways:
+    - enabled: true
+      label:
+        istio: arabox-admin
+      name: arabox-admin
+      namespace: shift
+      k8s:
+        service:
+          type: NodePort
+          ports:
+              - name: status-port
+                port: 15021
+              - name: tls-istiod
+                port: 15012
+              - name: tls
+                port: 15443
+                nodePort: 31371
+              - name: http2
+                port: 80
+                nodePort: 31381
+              - name: https
+                port: 443
+                nodePort: 31391
+        hpaSpec:
+          maxReplicas: 2
+          minReplicas: 1
+          metrics:
+            - type: Resource
+              resource:
+                name: cpu
+                targetAverageUtilization: 90
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 200m
+          limits:
+            memory: 1Gi
+            cpu: "500m"
+    - enabled: false
+      label:
+        istio: arabox-external
+      name: arabox-external
+      namespace: shift
+      k8s:
+        service:
+          type: ClusterIP
+        hpaSpec:
+          maxReplicas: 2
+          minReplicas: 1
+          metrics:
+            - type: Resource
+              resource:
+                name: cpu
+                targetAverageUtilization: 90
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 200m
+          limits:
+            memory: 1Gi
+            cpu: "500m"
+    - enabled: false
+      label:
+        istio: arabox-public
+      name: arabox-public
+      namespace: shift
+      k8s:
+        service:
+          type: ClusterIP
+        hpaSpec:
+          maxReplicas: 2
+          minReplicas: 1
+          metrics:
+            - type: Resource
+              resource:
+                name: cpu
+                targetAverageUtilization: 90
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 200m
+          limits:
+            memory: 1Gi
+            cpu: "500m"
+  profile: default

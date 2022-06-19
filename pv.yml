@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: redis-worker-mnt3-pv # Name of the PV. if the mnt1 is used by another service, it should be changed 
+  name: {pvname} # Name of the PV. if the mnt1 is used by another service, it should be changed 
 spec:
   capacity:
     storage: 8Gi
@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   claimRef:
-    name: redis-data-redis-replicas-0
+    name: {claimref}
     namespace: shift
   local:
     path: {mnt} # if the mnt1 is used by another service, it should be changed
