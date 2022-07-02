@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: shift-prometheus-admin
+  namespace: shift
+spec:
+  gateways:
+  - arabox-admin
+  hosts:
+  - prometheus.dev.westerops.com
+  http:
+  - match:
+    - uri:
+        prefix: /prometheus/
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: prom-operator-01-kube-prom-prometheus
+        port:
+          number: 9090

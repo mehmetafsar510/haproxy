@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: shift-grafana-admin
+  namespace: shift
+spec:
+  gateways:
+  - arabox-admin
+  hosts:
+  - grafana.dev.westerops.com
+  http:
+  - match:
+    - uri:
+        prefix: /login
+    - uri:
+        prefix: /public/*
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: prom-operator-01-grafana
+        port:
+          number: 80
