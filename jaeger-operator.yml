@@ -1,0 +1,28 @@
+apiVersion: jaegertracing.io/v1
+kind: "Jaeger"
+metadata:
+  name: jaeger
+spec:
+  strategy: production
+  query:
+    options:
+      log-level: info
+      query:
+        base-path: /jaeger
+  collector:
+    maxReplicas: 5
+    resources:
+      limits:
+        cpu: 500m
+        memory: 516Mi
+  storage:
+    type: elasticsearch
+    esIndexCleaner:
+      enabled: false                                ## turn the job deployment on and off
+      numberOfDays: 7                               ## number of days to wait before deleting a record
+      schedule: "55 23 * * *"                       ## cron expression for it to run
+      image: jaegertracing/jaeger-es-index-cleaner  ## image of the job
+    secretName: jaeger-secret
+    options:
+      es:
+        server-urls: http://elasticsearch:9200
