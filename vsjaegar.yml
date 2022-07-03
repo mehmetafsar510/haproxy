@@ -1,0 +1,19 @@
+piVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: shift-jaegar-admin
+  namespace: shift
+spec:
+  gateways:
+  - arabox-admin
+  hosts:
+  - jaegar.dev.westerops.com
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: jaeger-query
+        port:
+          number: 16686

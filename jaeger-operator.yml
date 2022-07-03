@@ -18,11 +18,11 @@ spec:
   storage:
     type: elasticsearch
     esIndexCleaner:
-      enabled: false                                ## turn the job deployment on and off
+      enabled: true                               ## turn the job deployment on and off
       numberOfDays: 7                               ## number of days to wait before deleting a record
       schedule: "55 23 * * *"                       ## cron expression for it to run
       image: jaegertracing/jaeger-es-index-cleaner  ## image of the job
     secretName: jaeger-secret
     options:
       es:
-        server-urls: http://elasticsearch:9200
+        server-urls: http://elasticsearch-master:9200
