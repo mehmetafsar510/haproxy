@@ -20,8 +20,10 @@ spec:
     esIndexCleaner:
       enabled: true                               ## turn the job deployment on and off
       numberOfDays: 7                               ## number of days to wait before deleting a record
-      schedule: "35 18 * * *"                       ## cron expression for it to run
-      image: jaegertracing/jaeger-es-index-cleaner  ## image of the job
+      schedule: "55 23 * * *"                       ## cron expression for it to run
+      image: registry.redhat.io/distributed-tracing/jaeger-es-index-cleaner-rhel7@sha256:c64ac461d96523516a199bd132ad4d7148317e503a735028f0d8f7ba063a61cb  ## image of the job
+      imagePullSecrets:
+      - name: redhat-pull-secret
     secretName: jaeger-secret
     options:
       es:
