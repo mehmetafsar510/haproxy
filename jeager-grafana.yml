@@ -1,0 +1,10 @@
+additionalDataSources:
+- name: jaeger
+  type: jaeger
+  uid: jaeger
+  access: proxy
+  url: http://jaeger-query.shift.svc.cluster.local:16686/jaeger
+  isDefault: true
+  version: 1
+  editable: true
+  basicAuth: false
