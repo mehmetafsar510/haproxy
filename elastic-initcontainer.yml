@@ -1,0 +1,22 @@
+initContainers:
+  # By default k8s mounts the data directory as root, which renders it inaccessible to Elasticsearch.
+  - name: fix-permissions
+    image: busybox
+    command: ["sh", "-c", "chown -R 1000:1000 /usr/share/elasticsearch/data"]
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: data
+      mountPath: /usr/share/elasticsearch/data
+  # To prevent OOM errors.
+  - name: increase-vm-max-map
+    image: busybox
+    command: ["sysctl", "-w", "vm.max_map_count=262144"]
+    securityContext:
+      privileged: true
+  # Increase the max number of open file descriptors. 
+  - name: increase-fd-ulimit
+    image: busybox
+    command: ["sh", "-c", "ulimit -n 65536"]
+    securityContext:
+      privileged: true
