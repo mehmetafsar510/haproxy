@@ -15,6 +15,12 @@ spec:
       limits:
         cpu: 500m
         memory: 516Mi
+  agent:
+    maxReplicas: 5
+    resources:
+      limits:
+        cpu: 500m
+        memory: 516Mi
   storage:
     type: elasticsearch
     esIndexCleaner:
