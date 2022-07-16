@@ -1,0 +1,29 @@
+apiVersion: v1
+data:
+  init-db.js: |-  
+    db = db.getSiblingDB('addressbook')
+    if (!db.getUser("addressbook")){
+        db.createUser({user: "addressbook", pwd: "TxUtqDXz7ixTmqmrDpfQ", roles: [{role: "readWrite", db: "addressbook"}]})
+    }
+    
+    db = db.getSiblingDB('gateway')
+    if (!db.getUser("gateway")){
+        db.createUser({user: "gateway", pwd: "H7MCYFosZrBpH6OaqcKx", roles: [{role: "readWrite", db: "gateway"}]})
+    }
+    
+    db = db.getSiblingDB('messenger')
+    if (!db.getUser("messenger")){
+        db.createUser({user: "messenger", pwd: "xyY5SsIxlXh4sSvVNWFM", roles: [{role: "readWrite", db: "messenger"}]})
+    }
+    db = db.getSiblingDB('presence')
+    if (!db.getUser("presence")){
+        db.createUser({user: "presence", pwd: "EZ1uyRdQxS7ESm2nl9c2", roles: [{role: "readWrite", db: "presence"}]})
+    }
+    db = db.getSiblingDB('media')
+    if (!db.getUser("media")){
+        db.createUser({user: "media", pwd: "0zBOhWqXYQuyeKB8S8F4", roles: [{role: "readWrite", db: "media"}]})
+    }
+kind: ConfigMap
+metadata:
+  name: mongo-initdb
+  namespace: shift
