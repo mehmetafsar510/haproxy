@@ -26,6 +26,24 @@ clusterDeprecationIndexing: "false"
 # such as elasticsearch.yml and log4j2.properties
 esConfig:
   elasticsearch.yml: |
+    node.name: "elasticsearch01"
+    cluster.name: "snss-logging-cluster"
+    network.host: 0.0.0.0
+    xpack.security.transport.ssl.enabled: false
+    xpack.license.self_generated.type: basic
     xpack.security.enabled: true
 
 antiAffinity: "soft"
+
+extraEnvs:
+   - name: ELASTIC_PASSWORD
+     valueFrom:
+        secretKeyRef:
+           name: elastic-secret
+           key: ELASTIC_PASSWORD
+
+   - name: ELASTIC_USERNAME
+     valueFrom:
+        secretKeyRef:
+           name: elastic-secret
+           key: ELASTIC_USERNAME

@@ -24,7 +24,7 @@ spec:
   storage:
     type: elasticsearch
     esIndexCleaner:
-      enabled: true                               ## turn the job deployment on and off
+      enabled: true                               ## http://jaeger-query.shift.svc.cluster.local:16686/jaeger
       numberOfDays: 7                               ## number of days to wait before deleting a record
       schedule: "55 23 * * *"                       ## cron expression for it to run
       image: registry.redhat.io/distributed-tracing/jaeger-es-index-cleaner-rhel7@sha256:c64ac461d96523516a199bd132ad4d7148317e503a735028f0d8f7ba063a61cb  ## image of the job

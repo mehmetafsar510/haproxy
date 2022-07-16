@@ -7,7 +7,7 @@ spec:
   gateways:
   - arabox-admin
   hosts:
-  - grafana.dev.westerops.com
+  - grafana.{cname_plus}
   http:
   - match:
     - uri:
