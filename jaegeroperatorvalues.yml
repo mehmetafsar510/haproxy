@@ -1,0 +1,52 @@
+jaeger:
+  create: true
+  spec:
+    strategy: production
+    query:
+      options:
+        log-level: info
+        query:
+          base-path: /jaeger
+    collector:
+      replicas: 2                                   # static number of replicas
+      maxReplicas: 5                                  # number for Horizontal Pod Autoscaler (HPA) configuration
+      autoscale: true                               # disable HPA
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+    agent:
+      maxReplicas: 5
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+    storage:
+      type: elasticsearch
+      esIndexCleaner:
+      enabled: true                               ## http://jaeger-query.shift.svc.cluster.local:16686/jaeger
+      numberOfDays: 7                               ## number of days to wait before deleting a record
+      schedule: "55 23 * * *"                       ## cron expression for it to run
+      image: registry.redhat.io/distributed-tracing/jaeger-es-index-cleaner-rhel7@sha256:c64ac461d96523516a199bd132ad4d7148317e503a735028f0d8f7ba063a61cb  ## image of the job
+      imagePullSecrets:
+      - name: redhat-pull-secret
+      options:
+        es:
+          server-urls: http://elasticsearch-master:9200
+#           use-aliases: true
+#           index-prefix: my-prefix
+#           tls:
+#             ca: /es/certificates/ca.crt
+#       esRollover:
+#         enabled: true                                # turn the cron job deployment on and off
+#         conditions: "{\"max_age\": \"2d\"}"          # conditions when to rollover to a new index
+#         readTTL: 168h                                # how long should be old data available for reading (7 days)
+#         schedule: "55 23 * * *"                      # cron expression for it to run
+#      volumeMounts:
+#        - name: certificates
+#          mountPath: /es/certificates/
+#          readOnly: true
+#      volumes:
+#        - name: certificates
+#          secret:
+#            secretName: quickstart-es-http-certs-public
