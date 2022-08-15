@@ -23,6 +23,10 @@ data:
     if (!db.getUser("media")){
         db.createUser({user: "media", pwd: "0zBOhWqXYQuyeKB8S8F4", roles: [{role: "readWrite", db: "media"}]})
     }
+    db = db.getSiblingDB('notifier')
+    if (!db.getUser("notifier")){
+        db.createUser({user: "notifier", pwd: "H7MCYFosZrBpH6OaqcKx", roles: [{role: "readWrite", db: "media"}]})
+    }
 kind: ConfigMap
 metadata:
   name: mongo-initdb
