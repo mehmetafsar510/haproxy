@@ -25,7 +25,7 @@ data:
     }
     db = db.getSiblingDB('notifier')
     if (!db.getUser("notifier")){
-        db.createUser({user: "notifier", pwd: "H7MCYFosZrBpH6OaqcKx", roles: [{role: "readWrite", db: "media"}]})
+        db.createUser({user: "notifier", pwd: "H7MCYFosZrBpH6OaqcKx", roles: [{role: "readWrite", db: "notifier"}]})
     }
 kind: ConfigMap
 metadata:
