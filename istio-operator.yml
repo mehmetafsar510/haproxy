@@ -40,7 +40,9 @@ spec:
             - type: Resource
               resource:
                 name: cpu
-                targetAverageUtilization: 90
+                target:
+                  type: Utilization
+                  averageUtilization: 60
         resources:
           requests:
             memory: 128Mi
@@ -63,7 +65,9 @@ spec:
             - type: Resource
               resource:
                 name: cpu
-                targetAverageUtilization: 90
+                target:
+                  type: Utilization
+                  averageUtilization: 60
         resources:
           requests:
             memory: 128Mi
@@ -86,7 +90,9 @@ spec:
             - type: Resource
               resource:
                 name: cpu
-                targetAverageUtilization: 90
+                target:
+                  type: Utilization
+                  averageUtilization: 60
         resources:
           requests:
             memory: 128Mi
