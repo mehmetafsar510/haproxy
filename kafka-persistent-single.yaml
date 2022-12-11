@@ -14,16 +14,19 @@ spec:
       - name: tls
         port: 9093
         type: internal
-        tls: true
+        tls: false
     config:
       offsets.topic.replication.factor: 1
+      socket.request.max.bytes: 2000000000
+      ssl.client.auth: none
+      enable.ssl.certificate.verification: false
       transaction.state.log.replication.factor: 1
       transaction.state.log.min.isr: 1
       default.replication.factor: 1
       min.insync.replicas: 1
       inter.broker.protocol.version: "3.3"
     storage:
-      deleteClaim: true
+      deleteClaim: false
       size: 8Gi
       type: persistent-claim
       class: local-storage
