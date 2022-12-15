@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: epara-auth
+  namespace: epara
+spec:
+  gateways:
+  - arabox-admin
+  hosts:
+  - auth.eparatest.westerops.com
+  http:
+  - match:
+    - uri:
+        prefix: /
+    - uri:
+        prefix: /auth
+    route:
+    - destination:
+        host: auth
+        port:
+          number: 8080
