@@ -7,7 +7,7 @@ spec:
   gateways:
   - arabox-admin
   hosts:
-  - admin.eparadev.westerops.com
+  - admin.eparatest.westerops.com
   http:
   - match:
     - uri:
