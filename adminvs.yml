@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: epara-admin
+  namespace: epara
+spec:
+  gateways:
+  - arabox-admin
+  hosts:
+  - admin.eparadev.westerops.com
+  http:
+  - match:
+    - uri:
+        prefix: /
+
+    route:
+    - destination:
+        host: admin
+        port:
+          number: 3000
