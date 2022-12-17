@@ -1,21 +1,20 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: epara-auth
+  name: epara-consul
   namespace: epara
 spec:
   gateways:
   - arabox-admin
   hosts:
-  - {subdomainauth}.{domain}
+  - {subdomainconsul}.{domain}
   http:
   - match:
     - uri:
         prefix: /
-    - uri:
-        prefix: /auth
+
     route:
     - destination:
-        host: auth
+        host: config
         port:
-          number: 8080
+          number: 8501
