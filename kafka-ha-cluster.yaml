@@ -7,7 +7,7 @@ spec:
     config:
       webserver.security.enable: false
   kafka:
-    version: 3.3.1
+    version: 3.9.0
     replicas: 3
     listeners:
       - name: plain
@@ -24,20 +24,21 @@ spec:
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
-      inter.broker.protocol.version: "3.3"
+      inter.broker.protocol.version: "3.9"
+      delete.topic.enable: "false"
     storage:
       type: jbod
       volumes:
       - id: 0
         type: persistent-claim
-        class: azurefile
+        class: gp3
         size: 10Gi
         deleteClaim: false
   zookeeper:
     replicas: 3
     storage:
       type: persistent-claim
-      class: azurefile
+      class: gp3
       size: 10Gi
       deleteClaim: false
   entityOperator:
