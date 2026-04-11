@@ -105,7 +105,7 @@ spec:
       volumes:
         - name: pv-volume
           nfs:
-            server: {efs_provisoner_fsid}.efs.us-east-1.amazonaws.com
+            server: {efs_provisoner_fsid}.efs.{aws_region}.amazonaws.com
             path: /
 ---
 kind: StorageClass
@@ -120,6 +120,6 @@ metadata:
   name: efs-provisioner
 data:
   file.system.id: {efs_provisoner_fsid} 
-  aws.region: us-east-1
+  aws.region: {aws_region}
   provisioner.name: example.com/aws-efs
-  dns.name: "{efs_provisoner_fsid}.efs.us-east-1.amazonaws.com"
+  dns.name: "{efs_provisoner_fsid}.efs.{aws_region}.amazonaws.com"
